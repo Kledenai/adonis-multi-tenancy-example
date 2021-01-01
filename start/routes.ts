@@ -20,7 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.post('/login', 'AuthController')
+Route.post('/login', 'AuthController.create')
 
 Route.get('/user', 'UsersController.index')
 Route.post('/user/create', 'UsersController.store')

@@ -4,27 +4,11 @@ import axios from 'axios'
 
 export default class Tenant {
   public async handle(ctx: HttpContextContract, next: () => Promise<void>) {
-    // code for middleware goes here. ABOVE THE NEXT CALL
     const params = ctx.request.get()
 
     try {
-      const result = await axios.get('http://localhost:3333/connection', {
-        params: {
-          subdomain: params.subdomain,
-        },
-      })
-
-      const connection = {
-        client: 'mysql' as const,
-        connection: {
-          host: result.data.db_hostname,
-          port: 3306,
-          user: result.data.db_username,
-          password: result.data.db_password,
-          database: result.data.db_database,
-        },
-        debug: false,
-      }
+      const database = await this.getCompany(params.subdomain)
+      const connection = await this.createConnection(database)
 
       const connectionName = params.subdomain
 
@@ -37,5 +21,29 @@ export default class Tenant {
     } catch (error) {
       return ctx.response.status(400).json(error.message)
     }
+  }
+
+  public async createConnection(database) {
+    return {
+      client: 'mysql' as const,
+      connection: {
+        host: database.db_hostname,
+        port: 3306,
+        user: database.db_username,
+        password: database.db_password,
+        database: database.db_database,
+      },
+      debug: false,
+    }
+  }
+
+  public async getCompany(subdomain) {
+    const response = await axios.get('http://localhost:3333/connection', {
+      params: {
+        subdomain: subdomain,
+      },
+    })
+
+    return response.data
   }
 }
