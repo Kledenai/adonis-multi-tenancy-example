@@ -30,4 +30,20 @@ export default class UsersController {
 
     return response.status(200).json({ message: 'User Created with successful' })
   }
+
+  public async show({ params, response }: HttpContextContract) {
+    try {
+      const user = await User.query({ connection: params.subdomain })
+        .where('id', '=', params.id)
+        .first()
+
+      if (await !user) {
+        return response.status(403).json({ message: 'User not found' })
+      }
+
+      return response.status(200).json(user)
+    } catch (error) {
+      return response.status(error.status).json({ message: error })
+    }
+  }
 }

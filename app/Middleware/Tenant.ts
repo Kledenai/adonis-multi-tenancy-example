@@ -19,7 +19,7 @@ export default class Tenant {
 
       await next()
     } catch (error) {
-      return ctx.response.status(400).json(error.message)
+      return ctx.response.status(400).json(error)
     }
   }
 

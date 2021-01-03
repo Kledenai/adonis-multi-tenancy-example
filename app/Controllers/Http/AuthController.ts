@@ -1,5 +1,4 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
 import Hash from '@ioc:Adonis/Core/Hash'
 import User from 'App/Models/User'
 
