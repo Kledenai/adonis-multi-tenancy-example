@@ -6,13 +6,13 @@ export default class UserSeeder extends BaseSeeder {
     // Write your database queries inside the run method
     await User.createMany([
       {
-        name: 'john',
-        email: 'john@vercel.com',
+        name: 'rebeca',
+        email: 'rebeca@cmc.com',
         password: 'secret',
       },
       {
-        name: 'marin',
-        email: 'marin@vercel.com',
+        name: 'alise',
+        email: 'alise@cmc.com',
         password: 'supersecret',
       },
     ])

@@ -5,6 +5,7 @@
  * file.
  */
 
+import Env from '@ioc:Adonis/Core/Env'
 import { AuthConfig } from '@ioc:Adonis/Addons/Auth'
 
 /*
@@ -52,6 +53,7 @@ const authConfig: AuthConfig = {
         driver: 'database',
         table: 'api_tokens',
         foreignKey: 'user_id',
+        connection: Env.get('DB_CONNECTION'),
       },
 
       provider: {
